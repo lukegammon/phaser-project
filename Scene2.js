@@ -17,7 +17,7 @@ class Scene2 extends Phaser.Scene {
     this.player.setCollideWorldBounds(true);
 
     this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-
+    this.projectiles = this.add.group();
     this.powerUps = this.physics.add.group();
 
     var maxObjects = 4;
@@ -82,6 +82,10 @@ class Scene2 extends Phaser.Scene {
     }
   }
 
+  shootBeam() {
+    var beam = new Beam(this);
+  }
+
   update() {
     this.moveShip(this.ship1, 1);
     this.moveShip(this.ship2, 2);
@@ -93,6 +97,11 @@ class Scene2 extends Phaser.Scene {
     if(Phaser.Input.Keyboard.JustDown(this.spacebar)) {
       this.shootBeam();
     }
+    for(var i = 0; i < this.projectiles.getChildren().length; i++) {
+      var beam = this.projectiles.getChildren()[i];
+      beam.update();
+    }
+
   }
 
 }
